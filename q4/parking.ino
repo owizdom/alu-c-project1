@@ -2,8 +2,8 @@
    Ultrasonic sensor -> Arduino Uno -> green LED, red LED, buzzer */
 
 /* pin numbers */
-int trigPin = 9;
-int echoPin = 10;
+int trigPin = 10;
+int echoPin = 9;
 int greenLed = 3;
 int redLed = 4;
 int buzzer = 5;
