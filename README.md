@@ -1,6 +1,6 @@
 # C Project 1
 
-Four small programs for Project 1. Three are plain C and one is an Arduino sketch. The code stays at a beginner level on purpose. It uses only `stdio.h`, plain variables, simple loops and `if` statements.
+Four small programs for Project 1. Three are plain C and one is an Arduino sketch.
 
 ## Files
 
