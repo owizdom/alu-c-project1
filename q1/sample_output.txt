@@ -1,5 +1,4 @@
 $ gcc water_quality.c -o water_quality
-
 $ ./water_quality
 Enter temperature (C): 28.5
 Enter turbidity (NTU): 12
@@ -9,48 +8,4 @@ Temperature   : 28.50 C
 Turbidity     : 12.00 NTU
 Quality index : 90.50
 Status        : Good
-================================
-
-$ ./water_quality
-Enter temperature (C): 25
-Enter turbidity (NTU): 40
-
-===== WATER QUALITY REPORT =====
-Temperature   : 25.00 C
-Turbidity     : 40.00 NTU
-Quality index : 80.00
-Status        : Good
-================================
-
-$ ./water_quality
-Enter temperature (C): 25
-Enter turbidity (NTU): 80
-
-===== WATER QUALITY REPORT =====
-Temperature   : 25.00 C
-Turbidity     : 80.00 NTU
-Quality index : 60.00
-Status        : Warning
-================================
-
-$ ./water_quality
-Enter temperature (C): 25
-Enter turbidity (NTU): 82
-
-===== WATER QUALITY REPORT =====
-Temperature   : 25.00 C
-Turbidity     : 82.00 NTU
-Quality index : 59.00
-Status        : Critical
-================================
-
-$ ./water_quality
-Enter temperature (C): 10
-Enter turbidity (NTU): 50
-
-===== WATER QUALITY REPORT =====
-Temperature   : 10.00 C
-Turbidity     : 50.00 NTU
-Quality index : 60.00
-Status        : Warning
 ================================

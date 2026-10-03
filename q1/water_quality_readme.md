@@ -1,8 +1,18 @@
 # Question 1: Sensor Monitoring System
 
-## How the program is organised
+## Deliverables
 
-Source code: [`water_quality.c`](water_quality.c). Real sample runs: [`sample_output.txt`](sample_output.txt).
+| # | Deliverable (from the assignment) | Where |
+|---|---|---|
+| 1 | Complete C source code | [Section 1](#1-complete-c-source-code), [`water_quality.c`](water_quality.c) |
+| 2 | Sample output from one test run | [Section 2](#2-sample-output-from-one-test-run), [`sample_input.txt`](sample_input.txt), [`sample_output.txt`](sample_output.txt), [`more_test_runs.txt`](more_test_runs.txt) |
+| 3 | Short technical explanation covering (a), (b), and (c) | [Section 3](#3-short-technical-explanation) |
+
+## 1. Complete C source code
+
+Source code: [`water_quality.c`](water_quality.c). Compile it with `gcc water_quality.c -o water_quality`.
+
+Sample input: [`sample_input.txt`](sample_input.txt). Sample output: [`sample_output.txt`](sample_output.txt). Both come from a real run. Running `./water_quality < sample_input.txt` gives the same results (the typed values just are not shown when the input comes from a file).
 
 Besides `main()`, I split the work into three small functions:
 
@@ -10,7 +20,7 @@ Besides `main()`, I split the work into three small functions:
 - `quality_index()` does the formula: 100 minus (deviation + turbidity / 2).
 - `print_status()` looks at the index and prints Good, Warning or Critical.
 
-## Sample output
+## 2. Sample output from one test run
 
 I compiled it with `gcc water_quality.c -o water_quality` and got no errors or warnings. Here's one run:
 
@@ -40,13 +50,15 @@ I also tried a few other readings to make sure every status shows up:
 
 The last row checks the cold side. 10 C is 15 below 25, and the program still counts that as a deviation of 15, not -15.
 
-## (a) Real-world application
+## 3. Short technical explanation
+
+### (a) Real-world application
 
 A good example is the firmware inside small devices like this water-quality monitor. These run on tiny chips. The Arduino Uno's chip, the ATmega328P, only has 32 KB of program memory and 2 KB of RAM. C works well here because it compiles into small, fast machine code and doesn't need anything heavy running in the background. It also lets you control the hardware pins and timers directly. And the timing is predictable, which matters when you need to read a sensor at the right moment.
 
-## (b) Error analysis
+### (b) Error analysis
 
-### Syntax error
+#### Syntax error
 
 Say I forget the semicolon on this line in `quality_index()`:
 
@@ -62,7 +74,7 @@ syn.c:27:25: error: expected ';' before 'index'
 
 That's a syntax error because I broke C's grammar rules. Every statement has to end with `;`. The compiler can't make sense of the code, so no program gets built at all.
 
-### Semantic error
+#### Semantic error
 
 Now say I write the formula without the brackets:
 
@@ -74,7 +86,7 @@ This one compiles fine, with no errors and no warnings. But for 28.5 C and 12 NT
 
 That's a semantic error. The grammar is fine, but the meaning is wrong. The compiler has no way of knowing what I meant, so the only way to catch it is to test the output against a calculation done by hand.
 
-## (c) Compilation lifecycle
+### (c) Compilation lifecycle
 
 I ran each stage separately on my own file to see what goes in and what comes out.
 

@@ -1,0 +1,49 @@
+The other readings I tested (index exactly 80, exactly 60, 59, and cold water at 10 C).
+
+$ gcc water_quality.c -o water_quality
+$ ./water_quality
+Enter temperature (C): 25
+Enter turbidity (NTU): 40
+
+===== WATER QUALITY REPORT =====
+Temperature   : 25.00 C
+Turbidity     : 40.00 NTU
+Quality index : 80.00
+Status        : Good
+================================
+
+$ gcc water_quality.c -o water_quality
+$ ./water_quality
+Enter temperature (C): 25
+Enter turbidity (NTU): 80
+
+===== WATER QUALITY REPORT =====
+Temperature   : 25.00 C
+Turbidity     : 80.00 NTU
+Quality index : 60.00
+Status        : Warning
+================================
+
+$ gcc water_quality.c -o water_quality
+$ ./water_quality
+Enter temperature (C): 25
+Enter turbidity (NTU): 82
+
+===== WATER QUALITY REPORT =====
+Temperature   : 25.00 C
+Turbidity     : 82.00 NTU
+Quality index : 59.00
+Status        : Critical
+================================
+
+$ gcc water_quality.c -o water_quality
+$ ./water_quality
+Enter temperature (C): 10
+Enter turbidity (NTU): 50
+
+===== WATER QUALITY REPORT =====
+Temperature   : 10.00 C
+Turbidity     : 50.00 NTU
+Quality index : 60.00
+Status        : Warning
+================================
