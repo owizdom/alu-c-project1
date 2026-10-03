@@ -22,8 +22,6 @@ Each question folder holds its code, its written answers (`README.md`) and the e
 | Q3 | [q3/README.md](q3/README.md) | [q3/sample_output.txt](q3/sample_output.txt), the example from the question |
 | Q4 | [q4/README.md](q4/README.md) | [q4/images](q4/images), circuit, block diagram and three simulation tests |
 
-The full write-up is in [submission/](submission) as a PDF and a Word file.
-
 ## Compile and run (Q1 to Q3)
 
 ```
