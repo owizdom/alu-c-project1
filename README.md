@@ -13,14 +13,14 @@ Four small programs for Project 1. Three are plain C and one is an Arduino sketc
 
 ## Answers and evidence
 
-Each question folder holds its code, its written answers (`README.md`) and the evidence.
+Each question folder holds its code, its written answers (`<program>_readme.md`) and the evidence.
 
 | Question | Answers | Evidence |
 |---|---|---|
-| Q1 | [q1/README.md](q1/README.md) | [q1/sample_output.txt](q1/sample_output.txt), five real runs |
-| Q2 | [q2/README.md](q2/README.md) | [q2/sample_output.txt](q2/sample_output.txt), a full menu session |
-| Q3 | [q3/README.md](q3/README.md) | [q3/sample_output.txt](q3/sample_output.txt), the example from the question |
-| Q4 | [q4/README.md](q4/README.md) | [q4/images](q4/images), circuit, block diagram and three simulation tests |
+| Q1 | [q1/water_quality_readme.md](q1/water_quality_readme.md) | [q1/sample_output.txt](q1/sample_output.txt), five real runs |
+| Q2 | [q2/mobile_money_readme.md](q2/mobile_money_readme.md) | [q2/sample_output.txt](q2/sample_output.txt), a full menu session |
+| Q3 | [q3/delivery_readme.md](q3/delivery_readme.md) | [q3/sample_output.txt](q3/sample_output.txt), the example from the question |
+| Q4 | [q4/parking_readme.md](q4/parking_readme.md) | [q4/images](q4/images), circuit, block diagram and three simulation tests |
 
 ## Compile and run (Q1 to Q3)
 

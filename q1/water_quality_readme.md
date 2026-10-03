@@ -2,7 +2,7 @@
 
 ## How the program is organised
 
-Source code: [`water_quality.c`](water_quality.c) (also shown in full at the end). Real sample runs: [`sample_output.txt`](sample_output.txt).
+Source code: [`water_quality.c`](water_quality.c). Real sample runs: [`sample_output.txt`](sample_output.txt).
 
 Besides `main()`, I split the work into three small functions:
 
@@ -109,82 +109,3 @@ I ran each stage separately on my own file to see what goes in and what comes ou
 The line counts are from my machine. They can be a bit different on another computer, because the header files and assembly depend on the system.
 
 Normally you just run `gcc water_quality.c -o water_quality` and it does all four stages in one go.
-
-## Full source code
-
-```c
-#include <stdio.h>
-
-/* Returns how far the temperature is from 25 C. The answer is never negative. */
-float temperature_deviation(float temperature)
-{
-	float deviation;
-
-	deviation = temperature - 25;
-
-	/* this works like abs(): turn a negative number into a positive one */
-	if (deviation < 0)
-	{
-		deviation = -deviation;
-	}
-
-	return deviation;
-}
-
-/* Calculates the water-quality index from the two sensor readings */
-float quality_index(float temperature, float turbidity)
-{
-	float deviation;
-	float penalty;
-	float index;
-
-	deviation = temperature_deviation(temperature);
-	penalty = turbidity / 2;
-	index = 100 - (deviation + penalty);
-
-	return index;
-}
-
-/* Prints Good, Warning or Critical depending on the index */
-void print_status(float index)
-{
-	if (index >= 80)
-	{
-		printf("Status        : Good\n");
-	}
-	else if (index >= 60)
-	{
-		printf("Status        : Warning\n");
-	}
-	else
-	{
-		printf("Status        : Critical\n");
-	}
-}
-
-int main(void)
-{
-	float temperature;
-	float turbidity;
-	float index;
-
-	/* read the two sensor values */
-	printf("Enter temperature (C): ");
-	scanf("%f", &temperature);
-	printf("Enter turbidity (NTU): ");
-	scanf("%f", &turbidity);
-
-	/* calculate the index */
-	index = quality_index(temperature, turbidity);
-
-	/* print the report */
-	printf("\n===== WATER QUALITY REPORT =====\n");
-	printf("Temperature   : %.2f C\n", temperature);
-	printf("Turbidity     : %.2f NTU\n", turbidity);
-	printf("Quality index : %.2f\n", index);
-	print_status(index);
-	printf("================================\n");
-
-	return 0;
-}
-```
