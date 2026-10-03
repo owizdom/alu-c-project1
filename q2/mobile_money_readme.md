@@ -1,8 +1,20 @@
 # Question 2: Mobile Money Transaction System
 
-Source code: [`mobile_money.c`](mobile_money.c). Real sample runs: [`sample_output.txt`](sample_output.txt).
+## Deliverables
 
-## Data types I used
+| # | Deliverable (from the assignment) | Where |
+|---|---|---|
+| 1 | Complete C source code | [Section 1](#1-complete-c-source-code), [`mobile_money.c`](mobile_money.c) |
+| 2 | Sample input/output demonstrating at least three different menu operations, including one invalid transaction | [Section 2](#2-sample-inputoutput), [`sample_input.txt`](sample_input.txt), [`sample_output.txt`](sample_output.txt) |
+| 3 | Brief explanation of how the program uses conditionals, loops, break, and continue | [Section 3](#3-how-the-program-uses-conditionals-loops-break-and-continue) |
+
+## 1. Complete C source code
+
+Source code: [`mobile_money.c`](mobile_money.c). Compile it with `gcc mobile_money.c -o mobile_money`.
+
+Sample input: [`sample_input.txt`](sample_input.txt). Sample output: [`sample_output.txt`](sample_output.txt). Both come from a real run. Running `./mobile_money < sample_input.txt` gives the same results (the typed values just are not shown when the input comes from a file).
+
+### Data types I used
 
 Everything is an `int`, and here's why for each one:
 
@@ -11,7 +23,7 @@ Everything is an `int`, and here's why for each one:
 - `choice`: the menu option, 1 to 5.
 - `result`: this holds what `scanf` gives back. It's 1 if it read a number, 0 if the user typed letters, and `EOF` if there's no more input at all.
 
-## Sample input/output
+## 2. Sample input/output
 
 I compiled it with `gcc mobile_money.c -o mobile_money` and got no errors or warnings.
 
@@ -111,7 +123,7 @@ Enter choice: 5
 System terminated.
 ```
 
-## How the program uses conditionals, loops, break and continue
+## 3. How the program uses conditionals, loops, break and continue
 
 The loop. The whole menu sits inside `while (1)` (line 31). That means it just keeps going round, so the agent can do as many transactions as they want without restarting. The normal way out is picking 5.
 

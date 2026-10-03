@@ -1,5 +1,4 @@
 $ gcc mobile_money.c -o mobile_money
-
 $ ./mobile_money
 ===== MOBILE MONEY TRANSACTION SYSTEM =====
 
