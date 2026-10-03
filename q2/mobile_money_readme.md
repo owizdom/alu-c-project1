@@ -29,6 +29,8 @@ I compiled it with `gcc mobile_money.c -o mobile_money` and got no errors or war
 
 In this run I used all five menu options. I also tried four things that should fail: withdrawing more than the balance, a negative amount, a menu number that doesn't exist (9), and typing letters (abc).
 
+Amounts are entered as whole francs (like 50000), because RWF has no decimals in everyday use. The program reads amounts as whole numbers, so typing a decimal like 12.5 is not supported: it keeps the 12 and the leftover .5 shows up as invalid input at the next menu.
+
 ```
 $ ./mobile_money
 ===== MOBILE MONEY TRANSACTION SYSTEM =====
