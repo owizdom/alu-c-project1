@@ -1,8 +1,22 @@
 # Question 3: Delivery Distance Analysis
 
-Source code: [`delivery.c`](delivery.c). Real sample runs: [`sample_output.txt`](sample_output.txt).
+## Deliverables
 
-## Sample input/output
+| # | Deliverable (from the assignment) | Where |
+|---|---|---|
+| 1 | Complete C source code | [Section 1](#1-complete-c-source-code), [`delivery.c`](delivery.c) |
+| 2 | Sample input/output | [Section 2](#2-sample-inputoutput), [`sample_input.txt`](sample_input.txt), [`sample_output.txt`](sample_output.txt) |
+| 3 | Brief explanation of how the program is divided into functions | [Section 3](#3-how-the-program-is-divided-into-functions) |
+| 4 | Brief explanation of how the recursive function works, including its base case | [Section 4](#4-how-the-recursive-function-works-including-its-base-case) |
+| 5 | State one advantage and one limitation of using recursion for this problem | [Section 5](#5-one-advantage-and-one-limitation-of-using-recursion) |
+
+## 1. Complete C source code
+
+Source code: [`delivery.c`](delivery.c). Compile it with `gcc delivery.c -o delivery`.
+
+Sample input: [`sample_input.txt`](sample_input.txt). Sample output: [`sample_output.txt`](sample_output.txt). Both come from a real run. Running `./delivery < sample_input.txt` gives the same results (the typed values just are not shown when the input comes from a file).
+
+## 2. Sample input/output
 
 I compiled it with `gcc delivery.c -o delivery` and got no errors or warnings. This is the example from the question:
 
@@ -29,7 +43,7 @@ Recursive sum: 140 km
 
 Checking it by hand: 12 + 25 + 18 + 40 + 15 + 30 = 140, and 140 / 6 = 23.33. The longest route is 40. The routes over 20 km are 25, 40 and 30, so that's 3.
 
-## How I split the program into functions
+## 3. How the program is divided into functions
 
 `main()` reads the input, checks that the number of routes is between 1 and 100, and prints the results. All the actual calculating happens in separate functions. Each one gets the array and the number of routes, and gives back one answer:
 
@@ -45,7 +59,7 @@ For function reuse, `average_distance()` doesn't add the numbers up again. It ju
 
 In `average_distance()` I wrote `(float)total / count`. The `(float)` matters. Without it, C divides two whole numbers, cuts off the decimals, and prints 23.00 instead of 23.33.
 
-## How the recursive function works
+## 4. How the recursive function works, including its base case
 
 ```c
 int recursive_sum(int distances[], int count)
@@ -78,7 +92,7 @@ recursive_sum(0) = 0                       <- base case
 
 Then the answers come back up: 12, 37, 55, 95, 110 and finally 140. The program prints `Recursive sum: 140 km`, the same as the loop version, so the two methods agree.
 
-## One advantage and one limitation
+## 5. One advantage and one limitation of using recursion
 
 Advantage: the code is really short, and it reads just like the way you'd explain the problem out loud ("last route plus the sum of the rest"). There's no loop counter to keep track of.
 

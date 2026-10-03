@@ -1,5 +1,4 @@
 $ gcc delivery.c -o delivery
-
 $ ./delivery
 Enter number of routes: 6
 Enter distance 1: 12
