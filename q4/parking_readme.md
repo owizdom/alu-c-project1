@@ -1,6 +1,18 @@
 # Question 4: Arduino Smart Parking System
 
+## Deliverables
+
+| # | Deliverable (from the assignment) | Where |
+|---|---|---|
+| 1 | Tinkercad circuit design showing all components and connections | [Section 1](#1-tinkercad-circuit-design), [`images/circuit.jpg`](images/circuit.jpg), [live design on Tinkercad](https://www.tinkercad.com/things/af6CaRZ7KVX-smart-parking-system) |
+| 2 | Block diagram showing the flow of data through the system | [Section 2](#2-block-diagram), [`images/block_diagram.png`](images/block_diagram.png) |
+| 3 | Arduino source code used in the Tinkercad simulation | [Section 3](#3-arduino-source-code), [`parking.ino`](parking.ino) |
+| 4 | At least two simulation test cases | [Section 4](#4-simulation-test-cases), three tests, screenshots in [`images/`](images) |
+| 5 | Short explanation describing the role of each component, how sensor data is processed, how the Arduino controls the outputs | [Section 5](#5-short-explanation) |
+
 ## 1. Tinkercad circuit design
+
+Live design on Tinkercad: <https://www.tinkercad.com/things/af6CaRZ7KVX-smart-parking-system>
 
 ![Tinkercad circuit: Smart Parking System](images/circuit.jpg)
 
