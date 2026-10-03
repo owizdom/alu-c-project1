@@ -1,0 +1,20 @@
+$ gcc delivery.c -o delivery
+
+$ ./delivery
+Enter number of routes: 6
+Enter distance 1: 12
+Enter distance 2: 25
+Enter distance 3: 18
+Enter distance 4: 40
+Enter distance 5: 15
+Enter distance 6: 30
+Enter distance limit: 20
+
+===== DELIVERY DISTANCE ANALYSIS =====
+
+Total distance: 140 km
+Average distance: 23.33 km
+Longest route: 40 km
+Routes above 20 km: 3
+
+Recursive sum: 140 km
