@@ -7,7 +7,7 @@
 | 1 | Tinkercad circuit design showing all components and connections | [Section 1](#1-tinkercad-circuit-design), [`images/circuit.jpg`](images/circuit.jpg), [live design on Tinkercad](https://www.tinkercad.com/things/af6CaRZ7KVX-smart-parking-system?sharecode=5jWkTN-CQHOvnFIWV-pHdCgkueqLRMvHqunsgteppko) |
 | 2 | Block diagram showing the flow of data through the system | [Section 2](#2-block-diagram), [`images/block_diagram.png`](images/block_diagram.png) |
 | 3 | Arduino source code used in the Tinkercad simulation | [Section 3](#3-arduino-source-code), [`parking.ino`](parking.ino) |
-| 4 | At least two simulation test cases | [Section 4](#4-simulation-test-cases), three tests, screenshots in [`images/`](images) |
+| 4 | At least two simulation test cases | [Section 4](#4-simulation-test-cases), five tests, two of them either side of the threshold, screenshots in [`images/`](images) |
 | 5 | Short explanation describing the role of each component, how sensor data is processed, how the Arduino controls the outputs | [Section 5](#5-short-explanation) |
 
 ## 1. Tinkercad circuit design
@@ -34,6 +34,8 @@ I built everything on a small breadboard so the wiring stays tidy. Every wire ha
 
 ![Block diagram](images/block_diagram.png)
 
+The arrows between the sensor and the Arduino go both ways. First the Arduino sends a trigger pulse to the sensor on pin 10. Then the sensor sends the echo time back on pin 9.
+
 
 ## 3. Arduino source code
 
@@ -43,13 +45,15 @@ I picked 50 cm as the threshold. If something is closer than 50 cm, a car is par
 
 ## 4. Simulation test cases
 
-In Tinkercad, you click the sensor while the simulation runs and drag the little ball to change the distance. I did three tests and kept the Serial Monitor open to see the numbers.
+In Tinkercad, you click the sensor while the simulation runs and drag the little ball to change the distance. I did five tests and kept the Serial Monitor open to see the numbers. Tests 4 and 5 sit just either side of the 50 cm threshold.
 
 | Test | Distance | Serial Monitor | Green | Red | Buzzer | OK? |
-|---|---|---|---|---|---|---|
+|----------|------|----------|----|----|------|----|
 | 1. No car, far away | 171.9 cm | 169 cm, AVAILABLE | ON | OFF | OFF | Yes |
 | 2. Car parked close | 21.6 cm | 21 cm, OCCUPIED | OFF | ON | ON (beeping) | Yes |
 | 3. Car drives away again | 110.8 cm | 109 cm, AVAILABLE | ON | OFF | OFF | Yes |
+| 4. Just outside the threshold | 55.3 cm | 54 cm, AVAILABLE | ON | OFF | OFF | Yes |
+| 5. Just inside the threshold | 45.4 cm | 44 cm, OCCUPIED | OFF | ON | ON (beeping) | Yes |
 
 Test 1: no car (171.9 cm), green LED on
 
@@ -62,6 +66,14 @@ Test 2: car close (21.6 cm), red LED on and buzzer sounding
 Test 3: car leaves (110.8 cm), back to green
 
 ![Test 3](images/test3_back_out_110cm.jpg)
+
+Test 4: just outside the threshold (55.3 cm), still green
+
+![Test 4](images/test4_just_outside_55cm.jpg)
+
+Test 5: just inside the threshold (45.4 cm), red LED on and buzzer sounding
+
+![Test 5](images/test5_just_inside_45cm.jpg)
 
 The number in the Serial Monitor is a bit lower than the one Tinkercad shows. That's because my code uses whole numbers and a rounded speed of sound, so it's close but not exact. It doesn't matter here, because all we care about is whether the car is closer or further than 50 cm.
 
