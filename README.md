@@ -20,7 +20,7 @@ Each question folder holds its code, its written answers (`<program>_readme.md`)
 | Q1 | [q1/water_quality_readme.md](q1/water_quality_readme.md) | [q1/sample_input.txt](q1/sample_input.txt), [q1/sample_output.txt](q1/sample_output.txt), plus four more runs in [q1/more_test_runs.txt](q1/more_test_runs.txt) |
 | Q2 | [q2/mobile_money_readme.md](q2/mobile_money_readme.md) | [q2/sample_input.txt](q2/sample_input.txt), [q2/sample_output.txt](q2/sample_output.txt), a full menu session |
 | Q3 | [q3/delivery_readme.md](q3/delivery_readme.md) | [q3/sample_input.txt](q3/sample_input.txt), [q3/sample_output.txt](q3/sample_output.txt), the example from the question |
-| Q4 | [q4/parking_readme.md](q4/parking_readme.md) | [q4/images](q4/images), circuit, block diagram and three simulation tests |
+| Q4 | [q4/parking_readme.md](q4/parking_readme.md) | [q4/images](q4/images), circuit, block diagram and five simulation tests |
 
 ## Compile and run (Q1 to Q3)
 
