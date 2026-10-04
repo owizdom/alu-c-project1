@@ -137,7 +137,7 @@ The conditionals. Before doing anything, a few `if` checks look at what was type
 
 If the choice is fine, a `switch (choice)` (line 70) jumps to the right operation for 1 to 4. Inside Deposit and Withdraw there's an `if / else` chain that turns down amounts of 0 or less (`amount <= 0`). For withdrawals it also turns down anything bigger than the balance (`amount > balance`). The balance only changes if every check passes.
 
-`continue`. Whenever the input is bad (lines 53, 67, 79 and 102), `continue` skips the rest of the loop and goes straight back to the top. So the menu shows up again and nothing has changed.
+`continue`. When the input itself can't be used (letters at the menu, a menu number that doesn't exist, or letters typed as an amount, at lines 53, 67, 79 and 102), `continue` skips the rest of the loop and goes straight back to the top. So the menu shows up again and nothing has changed. A rejected amount, like a negative number or an overdraw, prints its message and leaves the `switch` through its normal `break`, which also brings the menu back.
 
 `break`. I used it in two ways:
 

@@ -16,44 +16,39 @@ Live design on Tinkercad: <https://www.tinkercad.com/things/af6CaRZ7KVX-smart-pa
 
 ![Tinkercad circuit: Smart Parking System](images/circuit.jpg)
 
-I built everything on a small breadboard so the wiring stays tidy. Every wire has its own colour: black is GND, red is 5V, and each signal wire has a different colour.
+The circuit sits on a small breadboard. Black wires are GND, red wires are 5V, and each signal has its own colour.
 
 | Part | Connected to |
 |---|---|
-| HC-SR04 ultrasonic sensor, VCC | 5V rail (red wire) |
-| HC-SR04 TRIG | Arduino pin 10 (orange wire) |
-| HC-SR04 ECHO | Arduino pin 9 (yellow wire) |
-| HC-SR04 GND | GND rail (black wire) |
-| Red LED | Arduino pin 4 through a 220 ohm resistor (blue wire), other leg to GND |
-| Green LED | Arduino pin 3 through a 220 ohm resistor (green wire), other leg to GND |
-| Piezo buzzer + | Arduino pin 5 (purple wire) |
-| Piezo buzzer - | GND rail |
+| HC-SR04 ultrasonic sensor | VCC to 5V, TRIG to pin 10, ECHO to pin 9, GND to GND |
+| Green LED | pin 3 through a 220 ohm resistor, other leg to GND |
+| Red LED | pin 4 through a 220 ohm resistor, other leg to GND |
+| Piezo buzzer | + to pin 5, - to GND |
 | Breadboard rails | Arduino 5V and GND |
 
 ## 2. Block diagram
 
 ![Block diagram](images/block_diagram.png)
 
-The arrows between the sensor and the Arduino go both ways. First the Arduino sends a trigger pulse to the sensor on pin 10. Then the sensor sends the echo time back on pin 9.
-
+The Arduino sends a trigger pulse to the sensor on pin 10, and the sensor sends the echo time back on pin 9. The Arduino turns that time into a distance, compares it with 50 cm, and switches the LEDs and buzzer.
 
 ## 3. Arduino source code
 
 Source code: [`parking.ino`](parking.ino). It's the exact code running in the Tinkercad simulation.
 
-I picked 50 cm as the threshold. If something is closer than 50 cm, a car is parked in the space. Anything further away is just the empty space or the wall behind it.
+The threshold is 50 cm. Anything closer is a parked car, and anything further away is the empty space.
 
 ## 4. Simulation test cases
 
-In Tinkercad, you click the sensor while the simulation runs and drag the little ball to change the distance. I did five tests and kept the Serial Monitor open to see the numbers. Tests 4 and 5 sit just either side of the 50 cm threshold.
+While the simulation runs, clicking the sensor lets you drag an object closer or further away. I ran five tests with the Serial Monitor open. Tests 4 and 5 sit just either side of the 50 cm threshold.
 
-| Test | Distance | Serial Monitor | Green | Red | Buzzer | OK? |
-|----------|------|----------|----|----|------|----|
-| 1. No car, far away | 171.9 cm | 169 cm, AVAILABLE | ON | OFF | OFF | Yes |
-| 2. Car parked close | 21.6 cm | 21 cm, OCCUPIED | OFF | ON | ON (beeping) | Yes |
-| 3. Car drives away again | 110.8 cm | 109 cm, AVAILABLE | ON | OFF | OFF | Yes |
-| 4. Just outside the threshold | 55.3 cm | 54 cm, AVAILABLE | ON | OFF | OFF | Yes |
-| 5. Just inside the threshold | 45.4 cm | 44 cm, OCCUPIED | OFF | ON | ON (beeping) | Yes |
+| Test | Distance | Serial Monitor | Green | Red | Buzzer |
+|------------|------|----------|----|----|------|
+| 1. No car | 171.9 cm | 169 cm, AVAILABLE | ON | OFF | OFF |
+| 2. Car parked | 21.6 cm | 21 cm, OCCUPIED | OFF | ON | ON |
+| 3. Car leaves | 110.8 cm | 109 cm, AVAILABLE | ON | OFF | OFF |
+| 4. Just outside the threshold | 55.3 cm | 54 cm, AVAILABLE | ON | OFF | OFF |
+| 5. Just inside the threshold | 45.4 cm | 44 cm, OCCUPIED | OFF | ON | ON |
 
 Test 1: no car (171.9 cm), green LED on
 
@@ -75,32 +70,18 @@ Test 5: just inside the threshold (45.4 cm), red LED on and buzzer sounding
 
 ![Test 5](images/test5_just_inside_45cm.jpg)
 
-The number in the Serial Monitor is a bit lower than the one Tinkercad shows. That's because my code uses whole numbers and a rounded speed of sound, so it's close but not exact. It doesn't matter here, because all we care about is whether the car is closer or further than 50 cm.
+The Serial Monitor reads slightly below Tinkercad's distance because the code uses whole numbers and a rounded speed of sound. That never changes which side of 50 cm a reading falls on in these tests.
 
 ## 5. Short explanation
 
 ### Role of each component
 
-- Ultrasonic sensor (HC-SR04): the "eyes" of the system. It sends out a sound pulse that's too high for us to hear, and tells the Arduino how long the echo took to come back.
-- Arduino Uno: the brain. It triggers the sensor, works out the distance, decides if the space is free, and switches the outputs on and off.
-- Green LED: shows drivers the space is available.
-- Red LED: shows the space is taken.
-- Piezo buzzer: beeps when a car is in the space, as an extra alert.
-- 220 ohm resistors: limit the current through each LED so they don't burn out.
-- Breadboard: holds everything together and shares 5V and GND between the parts.
+The HC-SR04 sends an ultrasonic pulse and reports how long the echo takes to come back. The Arduino Uno runs the program: it triggers the sensor, works out the distance and switches the outputs. The green LED shows the space is free, the red LED shows it is taken, and the piezo buzzer sounds while a car is there. The 220 ohm resistors limit the current through the LEDs, and the breadboard shares 5V and GND between the parts.
 
 ### How the sensor data is processed
 
-1. The Arduino sets the TRIG pin HIGH for 10 microseconds. This makes the sensor send a sound pulse.
-2. `pulseIn(echoPin, HIGH)` measures how long the ECHO pin stays HIGH. That's the time the sound took to reach the car and bounce back, in microseconds.
-3. Sound moves about 0.034 cm every microsecond. The sound travels there and back, so the code divides by 2: `distance = duration * 0.034 / 2`.
-4. The distance is printed to the Serial Monitor so we can see what the sensor is reading.
+On every loop the Arduino sets TRIG high for 10 microseconds, which makes the sensor send a pulse. `pulseIn(echoPin, HIGH)` then measures how long ECHO stays high, which is the time the sound takes to reach the car and come back. Sound travels about 0.034 cm per microsecond and makes the trip twice, so the code uses `distance = duration * 0.034 / 2`. It prints the distance to the Serial Monitor.
 
 ### How the Arduino controls the outputs
 
-After working out the distance, the code uses one `if / else`:
-
-- If `distance < 50`, the space is occupied. It turns the red LED on with `digitalWrite(redLed, HIGH)`, turns the green LED off, and starts the buzzer with `tone(buzzer, 1000)`, which is a 1000 Hz beep.
-- Otherwise, the space is free. It turns the green LED on, turns the red one off, and stops the buzzer with `noTone(buzzer)`.
-
-Then it waits half a second (`delay(500)`) and does it all again, so the lights update as soon as a car arrives or leaves.
+One `if / else` makes the decision. If `distance < threshold` (50 cm), the red LED turns on, the green LED turns off, and `tone(buzzer, 1000)` plays a continuous 1000 Hz tone. Otherwise the green LED turns on, the red one turns off, and `noTone(buzzer)` stops the tone. After `delay(500)` the loop starts again, so the lights update about twice a second.
