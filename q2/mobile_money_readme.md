@@ -10,26 +10,31 @@
 
 ## 1. Complete C source code
 
-Source code: [`mobile_money.c`](mobile_money.c). Compile it with `gcc mobile_money.c -o mobile_money`.
+Source code: [`mobile_money.c`](mobile_money.c). To turn it into a program, use gcc, the C compiler: `gcc mobile_money.c -o mobile_money`.
 
-Sample input: [`sample_input.txt`](sample_input.txt). Sample output: [`sample_output.txt`](sample_output.txt). Both come from a real run. Running `./mobile_money < sample_input.txt` gives the same results (the typed values just are not shown when the input comes from a file).
+Sample input: [`sample_input.txt`](sample_input.txt). Sample output: [`sample_output.txt`](sample_output.txt). Both files come from a real run. To run it again with the same input, use `./mobile_money < sample_input.txt`. The `<` feeds the file in as if you typed it.
 
 ### Data types I used
 
-Everything is an `int`, and here's why for each one:
+Every variable is an `int`, which holds whole numbers:
 
-- `balance` and `amount`: mobile money in RWF is handled in whole francs. Nobody sends 500.75 RWF, so I didn't need decimals.
-- `deposit_count` and `withdrawal_count`: you can't have half a transaction, so whole numbers make sense. Both start at 0.
-- `choice`: the menu option, 1 to 5.
-- `result`: this holds what `scanf` gives back. It's 1 if it read a number, 0 if the user typed letters, and `EOF` if there's no more input at all.
+- `balance` and `amount` hold money in Rwandan francs. People send whole francs, like 50000 RWF, so decimals are not needed.
+- `deposit_count` and `withdrawal_count` count successful transactions. A count is always a whole number, and both start at 0.
+- `choice` holds the number typed at the menu. A valid choice is 1 to 5.
+- `result` holds the number that `scanf` gives back. `scanf` is the function that reads what the user types. It gives back 1 if the user typed a number. It is 0 if the user typed letters. It is `EOF`, which means "end of input", if there is nothing left to read.
 
 ## 2. Sample input/output
 
-I compiled it with `gcc mobile_money.c -o mobile_money` and got no errors or warnings.
+I compiled the program with `gcc mobile_money.c -o mobile_money`. There were no errors or warnings.
 
-In this run I used all five menu options. I also tried four things that should fail: withdrawing more than the balance, a negative amount, a menu number that doesn't exist (9), and typing letters (abc).
+In this run I used all five menu options. I also tried four things that should fail:
 
-Amounts are entered as whole francs (like 50000), because RWF has no decimals in everyday use. The program reads amounts as whole numbers, so typing a decimal like 12.5 is not supported: it keeps the 12 and the leftover .5 shows up as invalid input at the next menu.
+- withdrawing more than the balance,
+- a negative amount,
+- a menu number that does not exist (9),
+- typing letters (abc).
+
+Amounts must be whole francs, like 50000. A decimal like 12.5 is not supported. The program keeps the 12, and the leftover .5 shows up as invalid input at the next menu.
 
 ```
 $ ./mobile_money
@@ -127,21 +132,22 @@ System terminated.
 
 ## 3. How the program uses conditionals, loops, break and continue
 
-The loop. The whole menu sits inside `while (1)` (line 31). That means it just keeps going round, so the agent can do as many transactions as they want without restarting. The normal way out is picking 5.
+The loop. The whole menu sits inside `while (1)` (line 31). The 1 means true, so this loop never stops on its own. Only a `break` gets out of it. So the agent, the person who runs the mobile-money shop, can do many transactions without restarting the program.
 
-The conditionals. Before doing anything, a few `if` checks look at what was typed:
+The `if` checks. First, a few `if` checks look at what the agent typed:
 
+- `result == EOF` (line 42) means the input has ended.
 - `result != 1` (line 49) catches letters.
-- `choice == 5` (line 57) is Exit.
-- `choice < 1 || choice > 5` (line 64) catches numbers that aren't on the menu.
+- `choice == 5` (line 57) means Exit.
+- `choice < 1 || choice > 5` (line 64) catches numbers that are not on the menu. Here `||` means or.
 
-If the choice is fine, a `switch (choice)` (line 70) jumps to the right operation for 1 to 4. Inside Deposit and Withdraw there's an `if / else` chain that turns down amounts of 0 or less (`amount <= 0`). For withdrawals it also turns down anything bigger than the balance (`amount > balance`). The balance only changes if every check passes.
+If the choice is valid, a `switch (choice)` (line 70) jumps to the right operation for options 1 to 4. Inside Deposit and Withdraw, an `if / else` turns down amounts of 0 or less. Withdraw also turns down any amount bigger than the balance. The balance only changes when every check passes.
 
-`continue`. When the input itself can't be used (letters at the menu, a menu number that doesn't exist, or letters typed as an amount, at lines 53, 67, 79 and 102), `continue` skips the rest of the loop and goes straight back to the top. So the menu shows up again and nothing has changed. A rejected amount, like a negative number or an overdraw, prints its message and leaves the `switch` through its normal `break`, which also brings the menu back.
+`continue`. Some input is not a usable number at all. Examples are letters at the menu, a menu number that does not exist, or letters typed as an amount. In those cases (lines 53, 67, 79 and 102), `continue` skips the rest of the loop and jumps back to the top. So the menu shows up again, and nothing changes. A negative or too-large amount works differently. It prints its message, and the case's `break` then ends the `switch`. The loop then shows the menu again.
 
-`break`. I used it in two ways:
+`break`. It is used in two ways:
 
-1. Every `case` in the `switch` ends with `break` (lines 93, 120, 124 and 130). This stops the code from running into the next case.
-2. When the agent picks 5, the program prints "System terminated." and `break` (line 60) jumps out of the `while` loop, so the program ends. There's one more `break` (line 45) that also gets out of the loop if the input runs out completely, like when someone presses Ctrl+D. That way the program can never get stuck.
+1. Every `case` in the `switch` ends with `break` (lines 93, 120, 124 and 130). Without it, C would carry on into the next case's code too.
+2. When the agent chooses 5, the program prints "System terminated." Then `break` (line 60) jumps out of the `while` loop, and the program ends. One more `break` (line 45) leaves the loop if the input runs out, for example after Ctrl+D, the keys that mean no more input. So the program can never get stuck.
 
-One small thing about letters. If the agent types `abc`, `scanf` can't read it as a number, and the letters stay sitting in the input. So I wrote a tiny function, `clear_input()`, that reads the rest of that line and throws it away. Without it, the next `scanf` would hit the same `abc` again, and the menu would print forever.
+Letters. If the agent types `abc`, `scanf` cannot read it as a number. `scanf` leaves the letters unread, so they are still there next time. So a small function, `clear_input()`, reads the rest of that line and throws it away. Without it, the next `scanf` would read the same `abc` again, and the menu would repeat forever.
