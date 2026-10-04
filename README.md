@@ -1,19 +1,19 @@
 # C Project 1
 
-Four small programs for Project 1. Three are plain C and one is an Arduino sketch.
+Four small programs for Project 1. Three are plain C programs. One is an Arduino program, which Arduino calls a sketch.
 
 ## Files
 
 | Question | File | What it does |
 |---|---|---|
 | Q1 | `q1/water_quality.c` | Reads two sensor values and prints a water-quality status. |
-| Q2 | `q2/mobile_money.c` | Mobile-money menu. Rejects negative amounts and overdrafts. |
-| Q3 | `q3/delivery.c` | Route totals, average, longest route and a recursive sum. |
-| Q4 | `q4/parking.ino` | Smart parking indicator for Tinkercad. Red LED and buzzer under 50 cm, green LED otherwise. |
+| Q2 | `q2/mobile_money.c` | Mobile-money menu. Refuses negative amounts and withdrawals bigger than the balance. |
+| Q3 | `q3/delivery.c` | Route total, average and longest route. Also a sum done by a function that calls itself. |
+| Q4 | `q4/parking.ino` | Smart parking light for Tinkercad, a free online circuit simulator. Red LED and buzzer under 50 cm, green LED otherwise. |
 
 ## Answers and evidence
 
-Each question folder holds its code, its written answers (`<program>_readme.md`) and the evidence.
+Each question folder holds its code and its written answers (`<program>_readme.md`). It also holds the input and output of a real run, or screenshots for Q4.
 
 | Question | Answers | Evidence |
 |---|---|---|
@@ -23,6 +23,8 @@ Each question folder holds its code, its written answers (`<program>_readme.md`)
 | Q4 | [q4/parking_readme.md](q4/parking_readme.md) | [q4/images](q4/images), circuit, block diagram and five simulation tests |
 
 ## Compile and run (Q1 to Q3)
+
+gcc is the C compiler. It turns a `.c` file into a program you can run.
 
 ```
 gcc q1/water_quality.c -o water_quality
@@ -57,14 +59,14 @@ Recursive sum: 140 km
 
 | Part | Arduino Uno |
 |---|---|
-| HC-SR04 VCC / GND | 5V / GND (through the breadboard rails) |
-| HC-SR04 TRIG | pin 10 |
-| HC-SR04 ECHO | pin 9 |
+| HC-SR04 power (VCC) and ground (GND) | 5V and GND, through the long power strips on the breadboard |
+| HC-SR04 TRIG, which tells the sensor to send a sound | pin 10 |
+| HC-SR04 ECHO, which carries the sensor's answer | pin 9 |
 | Green LED (with 220 ohm resistor) | pin 3 |
 | Red LED (with 220 ohm resistor) | pin 4 |
 | Piezo buzzer | pin 5 |
 
-Paste `q4/parking.ino` into the Tinkercad code editor in Text mode. Start the simulation and click the sensor. Drag the object closer than 50 cm and the red LED and buzzer turn on.
+In Tinkercad, open the code editor and switch it from Blocks to Text. Paste in `q4/parking.ino`. Start the simulation and click the sensor. A small circle appears in front of it. Drag the circle closer than 50 cm, and the red LED and buzzer turn on.
 
 ## Author
 
