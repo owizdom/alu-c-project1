@@ -7,7 +7,7 @@ float temperature_deviation(float temperature)
 
 	deviation = temperature - 25;
 
-	/* this works like abs(): turn a negative number into a positive one */
+	/* if the difference is negative, make it positive */
 	if (deviation < 0)
 	{
 		deviation = -deviation;
